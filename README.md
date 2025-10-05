@@ -1,146 +1,197 @@
-# 🛰️ AIRBENDER : From EarthData to Personalized Action
+# 🛰️ AIRBENDER — From EarthData to Personalized Action
 
-**AIRBENDER** is a real-time, personalized air-quality intelligence platform that transforms **NASA TEMPO** satellite data into individualized forecasts and actionable guidance.  
-Developed by **Team NAVI** for the **NASA Space Apps Challenge 2025**, it bridges space-based science and everyday life - helping people breathe safer, live smarter, and stay informed in real time.
+### Developed by Team NAVI
+**Members:**  
+- **JEONG AH YOON** — Project Lead & AI Personalization Designer  
+- **JIHOON JEONG** — Data Pipeline Architect & Visualization Engineer  
+- **JIHO RYU** — Data Scientist & Environmental Data Engineer  
 
----
-
-## Overview
-
-AIRBENDER turns NASA TEMPO Level-2 and Level-3 Version 3 data - including **NO₂, O₃, HCHO, and Cloud Fraction (CLDO4)** - into personalized, human-centric air-quality intelligence.  
-Unlike conventional dashboards showing city-level indices, AIRBENDER adapts forecasts to each user's **location, routine, and health context**, combining cloud computing and large language models (LLMs) to deliver empathetic, actionable insights.
-
----
-
-## What Exactly Does It Do?
-
-AIRBENDER continuously retrieves and processes NASA TEMPO data through a cloud pipeline built on the **Google Cloud Platform (GCP)**.  
-It generates hourly nowcasts and short-term forecasts that are:
-- Location-specific  
-- Context-aware  
-- Personalized to user profiles  
-
-Based on these predictions, a **large language model (LLM)** converts scientific outputs into natural, human-like messages - adjusting tone, timing, and phrasing to fit each user’s lifestyle and preferences.
+**Challenge:**  
+[From EarthData to Action: Cloud Computing with Earth Observation Data for Predicting Cleaner, Safer Skies](https://www.spaceappschallenge.org/2025/challenges/from-earthdata-to-action-cloud-computing-with-earth-observation-data-for-predicting-cleaner-safer-skies)
 
 ---
 
-## How It Works
+## Project Overview
 
-### 1. Data Acquisition and Preprocessing
-- Connects to the **NASA Earthdata Cloud** using the *earthaccess API*  
-- Retrieves TEMPO **NO₂, O₃, HCHO**, and **Cloud Fraction (CLDO4)** datasets  
-- Filters by geographic coordinates (e.g., NYC: −74.3 to −73.6°, 40.4 to 41.0°)  
-- Converts NetCDF → structured time-series using *xarray* and *pandas*  
-- Stores cleaned data in **Google Cloud Storage** with version control  
+**AIRBENDER** transforms NASA **TEMPO Level-2 and Level-3 Version 3 datasets** — including **NO₂**, **O₃**, **HCHO**, and **Cloud Fraction** — into **personalized, real-time air-quality intelligence**.  
 
-### 2. Forecasting and Personalization
-- Uses a lightweight AI model on **Google Cloud Run**  
-- Combines historical TEMPO data with meteorological covariates  
-- Cross-references forecasts with each user’s encrypted metadata:
-  - Occupation  
-  - Outdoor exposure  
-  - Commute schedule  
-  - Health sensitivity  
-- Produces individualized forecast layers for each user  
+By fusing satellite observations with meteorological, ground, and urban-context data, AIRBENDER predicts pollution surges, quantifies exposure, and recommends when and where it’s safest to breathe.  
 
-### 3. Context-Aware Communication
-- Integrated **LLM (Qwen 2.5-VL)** generates human-like recommendations  
-- Adapts message tone and timing dynamically  
-- Sends alerts via push/email notifications (e.g., “07:30 morning brief”, “18:00 preview”)  
-
-### 4. Continuous Improvement
-- Modular design supports easy integration of:
-  - **AOD (Aerosol Optical Depth)** data  
-  - Ground-station PM₂.₅ / PM₁₀  
-  - Future **TEMPO V04** products  
-- Scalable architecture enables global deployment  
+> “From space-based science to everyday life — AIRBENDER turns NASA data into action.”
 
 ---
 
-## Benefits
+## Demonstration
 
-### Personal Impact
-- Provides **real-time, personalized forecasts** per user  
-- Issues actionable, empathetic recommendations like  
-  *“Delay your commute by one hour for cleaner air.”*  
-- Protects sensitive groups (children, elderly, respiratory patients)  
-- Encourages preventive behavior (mask use, ventilation timing, exercise scheduling)  
-
-### Social and Environmental Impact
-- Makes NASA TEMPO data accessible and interpretable to the public  
-- Supports **urban planners and local authorities** in identifying pollution patterns  
-- Promotes data-driven awareness and community-level behavioral change  
-
-### Scientific and Technological Contribution
-- Demonstrates how **TEMPO L3 V03** can power citizen-facing AI services  
-- Provides a reusable framework for merging satellite data + AI personalization  
-- Fosters public engagement with NASA open data  
-
-### Long-Term Vision
-- Envisions a world where **everyone receives personalized environmental intelligence**  
-- Expands beyond TEMPO to other satellite missions, connecting people globally to NASA’s Earth science ecosystem  
+- **Demo Video:** [https://youtube.com/watch?v=VvfAQruD_C0](https://youtube.com/watch?v=VvfAQruD_C0)  
+- **Try AIRBENDER Now:** [https://navi-airbender.replit.app/](https://navi-airbender.replit.app/)  
+- **Repository:** [https://github.com/nasa-navi/airbender](https://github.com/nasa-navi/airbender)
 
 ---
 
-## Project Goals
+## The Problem
 
-AIRBENDER aims to evolve into a **cloud-based environmental intelligence agent** -  
-a personal assistant that interprets NASA Earth observation data in real time.  
+Most air-quality tools show only city-level averages.  
+People make daily choices — when to commute, exercise, or ventilate — without detailed, location-specific guidance.
 
-It embodies the Space Apps theme **“From EarthData to Action”** by turning complex atmospheric measurements into **personalized, meaningful actions** that empower individuals and communities to live sustainably.
+Although NASA and other agencies provide open atmospheric data, the **user experience remains impersonal**.  
+We are **rich in data but poor in personalization** — missing the crucial question:
 
----
-
-## Tools, Languages, and Infrastructure
-
-### Languages and Core Development
-- **Python, JavaScript, HTML/CSS**  
-  - Python: Data ingestion, preprocessing, forecasting  
-  - JS/CSS: Interactive visualization and control  
-
-### Data Access and Processing
-- **NASA Earthdata (earthaccess API)** for TEMPO datasets  
-- **xarray, pandas, NumPy** for NetCDF handling and preprocessing  
-- **Google Cloud Storage** for data management  
-
-### Cloud Infrastructure and Forecasting
-- **Google Cloud Platform (GCP)** components:
-  - Cloud Run – AI forecasting API  
-  - Cloud Storage – dataset repository  
-  - Cloud Functions – automation and orchestration  
-
-### Personalization and Communication
-- **Qwen 2.5-VL (Alibaba Cloud LLM)** for adaptive, context-aware notifications  
-- Dynamically adjusts **tone, timing, and message style**  
-- **Google Gemini Veo 3** for animated, data-driven storytelling  
-
-### Collaboration and Version Control
-- **GitHub** for source code and version tracking  
-- **Notion** for documentation, dataset logs, and progress tracking  
+> “What does this mean for me, right now?”
 
 ---
 
-## Team NAVI
+## The Gap
 
-**Members**  
-- **Jeong Ah Yoon** – Project Lead & AI Personalization Designer  
-  [github.com/jjyoon012-git](https://github.com/jjyoon012-git)
+Open datasets (NASA TEMPO, MERRA-2, OpenAQ) exist, but they rarely reach individuals in actionable form.  
+Current dashboards show numbers, not meaning.
 
-- **Jihoon Jeong** – Data Pipeline Architect & Visualization Engineer  
-  [github.com/jeehun3020](https://github.com/jeehun3020)
-
-- **Jiho Ryu** – Data Scientist & Environmental Data Engineer  
-  [github.com/ryujihos0105](https://github.com/ryujihos0105)
-
-**Challenge**  
-*From EarthData to Action: Cloud Computing with Earth Observation Data for Predicting Cleaner, Safer Skies*  
-(NASA Space Apps Challenge 2025)
+**AIRBENDER bridges this gap** by combining cloud AI forecasting with large language models that interpret NASA data in a user’s personal context.
 
 ---
 
-## Contact
+## Our Solution
 
-For inquiries or collaboration:  
-**Team NAVI** – jjyoon012@gmail.com  
+AIRBENDER fuses NASA TEMPO data with meteorological covariates to generate hourly nowcasts and short-term forecasts, then **personalizes** the output with a **user context model**.
 
-GitHub: [https://github.com/nasa-navi](https://github.com/nasa-navi)
+A large-language-model (LLM) converts raw predictions into natural-language recommendations — adapting tone, timing, and phrasing for each user.
+
+---
+
+##  How It Works
+
+###  Data Acquisition & Preprocessing
+- Retrieves **TEMPO NO₂, O₃, HCHO, and Cloud Fraction (CLDO4)** from **NASA Earthdata Cloud** via `earthaccess` API  
+- Filters data for NYC region (−74.3 ~ −73.6°, 40.4 ~ 41.0°)  
+- Converts NetCDF → CSV using `xarray` and `pandas`  
+- Uses **Cloud Fraction** as a **confidence filter**  
+- Stores processed files in **Google Cloud Storage (GCS)**
+
+###  Forecasting & Personalization
+- Trains **Vertex AI Forecasting** model to predict **hourly O₃ concentration**  
+- Features include meteorological variables (temperature, humidity, wind speed) and satellite-derived gases  
+- Personalization layer cross-references forecasts with **encrypted user metadata**  
+  (occupation / commute hours / exposure / health sensitivity)
+
+####  Model Performance
+| Metric | Value |
+|:--|--:|
+| MAE | 5.639 |
+| MAPE | 21.83 |
+| RMSE | 7.05 |
+| RMSLE | 0.246 |
+| R² | 0.569 |
+
+####  Feature Importance
+| Rank | Feature | Contribution |
+|:--|:--|--:|
+| 1 | rh_percent | ~30% |
+| 2 | temp_C | ~20% |
+| 3 | time_utc | ~15% |
+| 4 | o3_ppb (lag) | ~13% |
+| 5 | wind_speed_mps | ~9% |
+| 6 | hcho_log10 | ~5% |
+
+### Automated Forecasting Pipeline
+
+| Stage | Component | Role |
+|:--|:--|:--|
+| 1 | TEMPO CSV → GCS | Upload latest data |
+| 2 | Vertex AI Forecasting | Batch prediction |
+| 3 | GCS Output Bucket | Store `predictions.csv` |
+| 4 | Cloud Run / Function | API for apps |
+| 5 | Cloud Scheduler | Automation |
+
+➡ **Advantages**
+- High accuracy via Vertex AI time-series optimization  
+- Fully serverless automation  
+- Near real-time updates  
+- Scalable & cost-efficient architecture  
+
+---
+
+## Context-Aware Communication
+Uses **Qwen 2.5-VL** to turn numeric forecasts into **empathetic messages**, adapting style and timing per user.  
+Notifications (e.g., 07:30 brief / 18:00 preview) are delivered via web or email.
+
+---
+
+## Front-End Interface
+- Built on **Replit** using HTML/CSS/JS  
+- Displays **real-time indices**, **24-hour trends**, and **route-based comparisons**  
+- Features dynamic animations created by **Google Gemini Veo 3**, where a tiger character’s behavior reflects air quality  
+  (walking in clean air / masking in polluted air)
+
+---
+
+## AI & Cloud Infrastructure
+
+| Component | Role |
+|:--|:--|
+| **Google Cloud Platform (GCP)** | Cloud storage, forecast pipeline, and API hosting |
+| **Vertex AI Forecasting** | PM₂.₅ and O₃ prediction |
+| **Qwen 2.5-VL** | Personalized language generation |
+| **ChatGPT (GPT-5)** | Text refinement and logo generation |
+| **Google Gemini Veo 3** | Character animations |
+| **Replit** | Front-end development and deployment |
+
+---
+
+## NASA & Partner Datasets
+
+| Source | Dataset ID | Description |
+|:--|:--|:--|
+| **NASA TEMPO** | C2930763263-LARC_CLOUD | NO₂ L3 V03 |
+|  | C2930761273-LARC_CLOUD | HCHO L3 V03 |
+|  | C2930784064-LARC_CLOUD | O₃ L3 V03 (total ozone) |
+|  | CLDO4 L2 V03 | Cloud Fraction |
+| **Other Data** | OpenAQ   /  Open-Meteo | Ground PM / Meteorology / Weather Profiles |
+
+---
+
+## Impact
+
+### For Citizens & Workers
+- Personalized forecasts by location and exposure  
+- Context-aware suggestions (e.g., “Delay your commute by 1 hour for cleaner air”)  
+- Protects sensitive groups (children, elderly, respiratory patients)
+
+### For Communities & Policy
+- Makes NASA TEMPO data interpretable for the public  
+- Reveals spatiotemporal pollution patterns  
+- Enables data-driven urban planning and awareness  
+
+### For NASA Ecosystem
+- Demonstrates TEMPO integration into AI-driven citizen services  
+- Provides a reusable cloud pipeline framework  
+- Engages the public with NASA open data through personalization  
+
+---
+
+## Future Vision
+
+- **Predictive Analytics:** Longer forecast horizons & richer covariates  
+- **Expanded Datasets:** AOD, PM, land use, mobility integration  
+- **Partnerships:** Collaboration with municipalities and health agencies  
+- **Global Scalability:** Extend to future NASA missions beyond TEMPO  
+
+---
+
+## Case Studies
+
+| User | Situation | Personalized Action |
+|:--|:--|:--|
+| Urban Commuter | Morning NO₂ spike | Leave 45 min later for cleaner air |
+| Outdoor Worker | Afternoon O₃ rise | Split tasks into two cleaner periods |
+| Parent of Asthmatic Child | Midday O₃ alert | Move playtime indoors for safety |
+
+---
+
+## Conclusion
+
+**AIRBENDER** connects NASA Earth observations with AI personalization to transform complex atmospheric data into **human-centered, actionable intelligence**.
+
+By scaling across regions and missions, it aims to become a **daily environmental assistant** that helps people **breathe safer, move smarter, and live sustainably** — fulfilling the spirit of  
+> **“From EarthData to Action.”**
+
+---
