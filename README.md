@@ -127,10 +127,10 @@ It embodies the Space Apps theme **“From EarthData to Action”** by turning c
   [github.com/jjyoon012-git](https://github.com/jjyoon012-git)
 
 - **Jihoon Jeong** – Data Pipeline Architect & Visualization Engineer  
-  [github.com/jihooncloud](https://github.com/jeehun3020)
+  [github.com/jeehun3020](https://github.com/jeehun3020)
 
 - **Jiho Ryu** – Data Scientist & Environmental Data Engineer  
-  [github.com/jiho-ryu](https://github.com/ryujihos0105)
+  [github.com/ryujihos0105](https://github.com/ryujihos0105)
 
 **Challenge**  
 *From EarthData to Action: Cloud Computing with Earth Observation Data for Predicting Cleaner, Safer Skies*  
