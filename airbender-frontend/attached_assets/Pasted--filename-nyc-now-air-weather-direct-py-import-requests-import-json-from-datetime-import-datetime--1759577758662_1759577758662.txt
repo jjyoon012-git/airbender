@@ -1,0 +1,83 @@
+# filename: nyc_now_air_weather_direct.py
+import requests
+import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+# ==============================
+# 🔧 설정 부분
+# ==============================
+NYC_LAT, NYC_LON = 40.7128, -74.0060
+AIRNOW_KEY = "62D8C9C2-3A9C-4DF5-8979-2611D6144ACB"  # <- 🔴 직접 입력 (예: "1234567890ABCDEFG")
+
+# ==============================
+# ☁️ Open-Meteo (온도·습도·풍속)    
+# ==============================
+def fetch_open_meteo(lat, lon):
+    url = (
+        f"https://api.open-meteo.com/v1/forecast?"
+        f"latitude={lat}&longitude={lon}"
+        "&current=temperature_2m,relative_humidity_2m,wind_speed_10m"
+        "&wind_speed_unit=ms&timezone=America%2FNew_York"
+    )
+    res = requests.get(url)
+    data = res.json()
+    cur = data["current"]
+    return {
+        "temp": cur["temperature_2m"],
+        "humidity": cur["relative_humidity_2m"],
+        "wind": cur["wind_speed_10m"],
+        "time": cur["time"]
+    }
+
+# ==============================
+# 🌫 AirNow (PM2.5, O3)
+# ==============================
+def fetch_airnow(lat, lon, api_key):
+    url = (
+        f"https://www.airnowapi.org/aq/observation/latLong/current/"
+        f"?format=application/json&latitude={lat}&longitude={lon}"
+        f"&distance=25&API_KEY={api_key}"
+    )
+    res = requests.get(url)
+    arr = res.json()
+    out = {}
+    for item in arr:
+        name = item["ParameterName"]
+        out[name] = {
+            "AQI": item["AQI"],
+            "Category": item["Category"]["Name"],
+            "Concentration": item.get("Concentration")
+        }
+    return out
+
+# ==============================
+# 🚀 실행
+# ==============================
+def main():
+    tz = ZoneInfo("America/New_York")
+    now_local = datetime.now(tz).strftime("%Y-%m-%d %H:%M")
+
+    weather = fetch_open_meteo(NYC_LAT, NYC_LON)
+    air = fetch_airnow(NYC_LAT, NYC_LON, AIRNOW_KEY)
+
+    print(f"\n=== 🌎 NEW YORK NOW ({now_local}) ===")
+    print(f"🌤 Temp: {weather['temp']} °C | RH: {weather['humidity']} % | Wind: {weather['wind']} m/s")
+    print(f"    (time: {weather['time']})")
+
+    pm = air.get("PM2.5", {})
+    o3 = air.get("O3", {})
+    print(f"🌫 PM2.5 AQI {pm.get('AQI')} ({pm.get('Category')}) | Conc {pm.get('Concentration')}")
+    print(f"🧪 O₃ AQI {o3.get('AQI')} ({o3.get('Category')}) | Conc {o3.get('Concentration')}")
+
+    # 저장 (optional)
+    with open("nyc_air_weather.json", "w", encoding="utf-8") as f:
+        json.dump({
+            "datetime_local": now_local,
+            "weather": weather,
+            "air_quality": air
+        }, f, ensure_ascii=False, indent=2)
+    print("\n💾 Saved to nyc_air_weather.json")
+
+if __name__ == "__main__":
+    main()
